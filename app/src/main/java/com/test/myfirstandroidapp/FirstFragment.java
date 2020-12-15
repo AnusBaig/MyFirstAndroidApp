@@ -1,8 +1,7 @@
 package com.test.myfirstandroidapp;
 
-import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +20,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 public class FirstFragment extends Fragment {
 
     @Override
@@ -32,7 +27,6 @@ public class FirstFragment extends Fragment {
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_first, container, false);
     }
@@ -41,49 +35,65 @@ public class FirstFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         TableLayout table = (TableLayout) view.findViewById(R.id.tbl);
+        Toast.makeText(FirstFragment.super.getContext(),"Fetching Users from Firebase database...",Toast.LENGTH_LONG).show();
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference userDb = database.getReference().child("posts");
+        try {
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference userDb = database.getReference().child("users");
 
+            FetchUsers(userDb, table);
+
+            view.findViewById(R.id.button_first).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    NavHostFragment.findNavController(FirstFragment.this)
+                            .navigate(R.id.action_firstFragment_to_secondFragment);
+                }
+            });
+        }
+        catch (Exception e){
+            Toast.makeText(FirstFragment.super.getContext(),"Unknown error occurred while fetching users",Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void FetchUsers(DatabaseReference userDb,TableLayout table){
         userDb.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {
-                    for(DataSnapshot postSnapshot :dataSnapshot.getChildren()) {
-                        Post post = postSnapshot.getValue(Post.class);
+                    for(DataSnapshot userSnapshot :dataSnapshot.getChildren()) {
+                        User user = userSnapshot.getValue(User.class);
 
                         TableRow row = new TableRow(FirstFragment.super.getContext());
 
                         TextView id = new TextView(FirstFragment.super.getContext());
                         id.setId(getId());
-                        id.setText(""+post.getId());
-                        row.addView(id, 55, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        id.setText("   "+user.getUserId());
+                        id.setTextColor(Color.BLUE);
+                        row.addView(id, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
                         id.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 Bundle args= new Bundle();
-                                String [] fetchedPost=new String[3];
-                                fetchedPost[0]=""+post.getId();
-                                fetchedPost[1]=post.getPostedBy();
-                                fetchedPost[2]=post.getTitle();
+                                String [] fetchedUser=new String[5];
+                                fetchedUser[0]=""+user.getUserId();
+                                fetchedUser[1]=user.getEmailAddress();
+                                fetchedUser[2]=user.getFirstName();
+                                fetchedUser[3]=user.getLastName();
+                                fetchedUser[4]=user.getPhoneNumber();
 
-                                args.putStringArray("Post",fetchedPost);
+                                args.putStringArray("User",fetchedUser);
 
                                 NavHostFragment.findNavController(FirstFragment.this)
                                         .navigate(R.id.action_firstFragment_to_secondFragment,args);
                             }
                         });
 
-                        TextView postedBy = new TextView(FirstFragment.super.getContext());
-                        postedBy.setId(getId());
-                        postedBy.setText(post.getPostedBy());
-                        row.addView(postedBy, 108, ViewGroup.LayoutParams.WRAP_CONTENT);
-
-                        TextView title = new TextView(FirstFragment.super.getContext());
-                        title.setId(getId());
-                        title.setText(post.getTitle());
-                        row.addView(title, 96, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        createCell(row,150,user.getEmailAddress());
+                        createCell(row,60,user.getFirstName());
+                        createCell(row,60,user.getLastName());
+                        createCell(row,40,user.getPhoneNumber());
 
                         table.addView(row);
                     }
@@ -92,16 +102,15 @@ public class FirstFragment extends Fragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(FirstFragment.super.getContext(),"Fetching from database failed",Toast.LENGTH_LONG).show();
+                Toast.makeText(FirstFragment.super.getContext(),"Users couldn't fetched from database",Toast.LENGTH_LONG).show();
             }
         });
+    }
 
-        view.findViewById(R.id.button_first).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(FirstFragment.this)
-                        .navigate(R.id.action_firstFragment_to_secondFragment);
-            }
-        });
+    public void createCell(TableRow row,int width,String value){
+        TextView cell = new TextView(FirstFragment.super.getContext());
+        cell.setId(getId());
+        cell.setText(value);
+        row.addView(cell, width, ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 }
