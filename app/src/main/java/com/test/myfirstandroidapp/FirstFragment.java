@@ -38,44 +38,62 @@ public class FirstFragment extends Fragment {
         Toast.makeText(FirstFragment.super.getContext(),"Fetching Users from Firebase database...",Toast.LENGTH_LONG).show();
 
         try {
+            // Get database refrence to users
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference userDb = database.getReference().child("users");
 
+            // Fetch users from database
             FetchUsers(userDb, table);
 
+            // Set click listener on 'new post' button
             view.findViewById(R.id.button_first).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    // On click it navigates to add new form
                     NavHostFragment.findNavController(FirstFragment.this)
                             .navigate(R.id.action_firstFragment_to_secondFragment);
                 }
             });
         }
         catch (Exception e){
+            // Show toast message as Unknown error
             Toast.makeText(FirstFragment.super.getContext(),"Unknown error occurred while fetching users",Toast.LENGTH_LONG).show();
         }
     }
 
+    //Fetch Users from database
     public void FetchUsers(DatabaseReference userDb,TableLayout table){
+
+        //Get complete snapshot of data from root data refrence in database
         userDb.addValueEventListener(new ValueEventListener() {
+            // If refrence is valid to take snapshot
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                //Check if refrence has data
                 if(dataSnapshot.exists()) {
+                    // Go to each user node from data snapshot one by one
                     for(DataSnapshot userSnapshot :dataSnapshot.getChildren()) {
+                        // Get user details from particular data snapshot refrence
                         User user = userSnapshot.getValue(User.class);
 
+                        // Create row
                         TableRow row = new TableRow(FirstFragment.super.getContext());
 
+                        // Create Id column
                         TextView id = new TextView(FirstFragment.super.getContext());
                         id.setId(getId());
                         id.setText("   "+user.getUserId());
                         id.setTextColor(Color.BLUE);
                         row.addView(id, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
+                        // Add click listener on id column
                         id.setOnClickListener(new View.OnClickListener() {
+                            // On click it navigates to update form
                             @Override
                             public void onClick(View v) {
+                                //Create bundler
                                 Bundle args= new Bundle();
+                                // Add properties in bundler from fetched user from database
                                 String [] fetchedUser=new String[5];
                                 fetchedUser[0]=""+user.getUserId();
                                 fetchedUser[1]=user.getEmailAddress();
@@ -83,34 +101,42 @@ public class FirstFragment extends Fragment {
                                 fetchedUser[3]=user.getLastName();
                                 fetchedUser[4]=user.getPhoneNumber();
 
+                                // Pass bunddler as argument
                                 args.putStringArray("User",fetchedUser);
 
+                                // Pass arguments to form
+                                // Navigate to form to to update details
                                 NavHostFragment.findNavController(FirstFragment.this)
                                         .navigate(R.id.action_firstFragment_to_secondFragment,args);
                             }
                         });
 
-                        createCell(row,150,user.getEmailAddress());
-                        createCell(row,60,user.getFirstName());
-                        createCell(row,60,user.getLastName());
-                        createCell(row,40,user.getPhoneNumber());
+                        // Create cells by provided properties and append in row
+                        createCell(row,150,user.getEmailAddress(),Color.BLACK);
+                        createCell(row,60,user.getFirstName(),Color.BLACK);
+                        createCell(row,60,user.getLastName(),Color.BLACK);
+                        createCell(row,40,user.getPhoneNumber(),Color.BLACK);
 
+                        // Append row in table
                         table.addView(row);
                     }
                 }
             }
 
+            // If refrence is invalid to take snapshot
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                // Show toast message as User not exist
                 Toast.makeText(FirstFragment.super.getContext(),"Users couldn't fetched from database",Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    public void createCell(TableRow row,int width,String value){
+    public void createCell(TableRow row,int width,String value,int color){
         TextView cell = new TextView(FirstFragment.super.getContext());
         cell.setId(getId());
         cell.setText(value);
+        cell.setTextColor(color);
         row.addView(cell, width, ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 }

@@ -169,4 +169,12 @@
         app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toEndOf="@+id/txt_id" />
 
+    <Button
+        android:id="@+id/btn_delete"
+        android:layout_width="71dp"
+        android:layout_height="37dp"
+        android:text="Delete"
+        tools:layout_editor_absoluteX="313dp"
+        tools:layout_editor_absoluteY="28dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
