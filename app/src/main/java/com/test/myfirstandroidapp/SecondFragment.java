@@ -69,7 +69,7 @@ public class SecondFragment extends Fragment {
         }
 
             // Set click listener on Submit button
-            view.findViewById(R.id.button_second).setOnClickListener(new View.OnClickListener() {
+            view.findViewById(R.id.btn_dashboard).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try{

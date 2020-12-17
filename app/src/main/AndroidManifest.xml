@@ -10,6 +10,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyFirstAndroidApp">
         <activity
+            android:name=".SqliteActivity"
+            android:label="@string/title_activity_sqlite"
+            android:theme="@style/Theme.MyFirstAndroidApp.NoActionBar">
+<!--               <intent-filter>-->
+<!--                   <action android:name="android.intent.action.MAIN" />-->
+
+
+<!--                   <category android:name="android.intent.category.LAUNCHER" />-->
+<!--               </intent-filter>-->
+        </activity>
+        <activity
+            android:name=".WeatherActivity"
+            android:label="@string/title_activity_weather"
+            android:theme="@style/Theme.MyFirstAndroidApp.NoActionBar">
+        </activity>
+        <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.MyFirstAndroidApp.NoActionBar">

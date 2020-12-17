@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FirstFragment">
+    tools:context=".First3Fragment">
 
     <Button
-        android:id="@+id/btn_weather_report"
+        android:id="@+id/btn_sql_weather_report"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="44dp"
         android:text="NEW USER"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,7 +19,7 @@
         app:layout_constraintVertical_bias="0.948" />
 
     <TextView
-        android:id="@+id/txtTitle"
+        android:id="@+id/txt_sqlTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Users"
@@ -31,24 +32,23 @@
         tools:layout_editor_absoluteY="140dp" />
 
     <TableLayout
-        android:id="@+id/tbl"
+        android:id="@+id/tbl_sql"
         android:layout_width="394dp"
         android:layout_height="425dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_weather_report"
+        app:layout_constraintBottom_toTopOf="@+id/btn_sql_weather_report"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTitle"
-        app:layout_constraintVertical_bias="0.45">
+        app:layout_constraintTop_toBottomOf="@+id/txt_sqlTitle">
 
         <TableRow
-            android:id="@+id/tbl_row"
+            android:id="@+id/tbl_sql_row"
             android:layout_width="match_parent"
             android:layout_height="54dp"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/col_txt_id"
+                android:id="@+id/col_sql_txt_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="User Id"
@@ -56,7 +56,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/col_txt_email"
+                android:id="@+id/col_sql_txt_email"
                 android:layout_width="150dp"
                 android:layout_height="match_parent"
                 android:text="             Email"
@@ -64,7 +64,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/col_txt_firstName"
+                android:id="@+id/col_sql_txt_firstName"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:text="First Name"
@@ -72,7 +72,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/col_txt_lastName"
+                android:id="@+id/col_sql_txt_lastName"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:text="Last Name"
@@ -80,7 +80,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/col_txt_phone"
+                android:id="@+id/col_sql_txt_phone"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:text="Phone"
@@ -90,35 +90,35 @@
         </TableRow>
 
         <TableRow
-            android:id="@+id/tbl_row_1"
+            android:id="@+id/tbl_sql_row_1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/cell_txt_id"
+                android:id="@+id/cell_sql_txt_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/cell_txt_email"
+                android:id="@+id/cell_sql_txt_email"
                 android:layout_width="81dp"
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/cell_txt_first"
+                android:id="@+id/cell_sql_txt_first"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/cell_txt_last"
+                android:id="@+id/cell_sql_txt_last"
                 android:layout_width="72dp"
                 android:layout_height="wrap_content"
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/cell_txt_phone"
+                android:id="@+id/cell_sql_txt_phone"
                 android:layout_width="53dp"
                 android:layout_height="wrap_content"
                 android:textSize="14sp" />
@@ -127,11 +127,19 @@
     </TableLayout>
 
     <Button
-        android:id="@+id/btn_sql_activity"
+        android:id="@+id/btn_main_activity"
         android:layout_width="104dp"
         android:layout_height="56dp"
-        android:text="SQLite Activity"
+        android:text="Firebase Activity"
         tools:layout_editor_absoluteX="18dp"
         tools:layout_editor_absoluteY="82dp" />
 
+    <Button
+        android:id="@+id/btn_data_firebase"
+        android:layout_width="120dp"
+        android:layout_height="90dp"
+        android:text="Load Users From Firebase"
+        app:backgroundTint="@android:color/holo_orange_dark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.test.myfirstandroidapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -22,11 +24,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
-public class FirstFragment extends Fragment {
+public class First3Fragment extends Fragment {
     private Runnable autoUpdater;
+    private boolean isLoadFromFirebase;
 
     @Override
     public View onCreateView(
@@ -34,63 +34,95 @@ public class FirstFragment extends Fragment {
             Bundle savedInstanceState
     ) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_first, container, false);
+        return inflater.inflate(R.layout.fragment_first3, container, false);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference userDb = database.getReference().child("users");
 
-        TableLayout table = (TableLayout) view.findViewById(R.id.tbl);
+        TableLayout table = (TableLayout) view.findViewById(R.id.tbl_sql);
 
-//        Toast.makeText(FirstFragment.super.getContext(),"Fetching Users from Firebase database...",Toast.LENGTH_LONG).show();
+        Toast.makeText(First3Fragment.super.getContext(),"Fetching Users from Sqlite database...",Toast.LENGTH_LONG).show();
 
         try {
-            // Get database refrence to users
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference userDb = database.getReference().child("users");
-
             Handler handler = new android.os.Handler();
 
             autoUpdater = new Runnable() {
                 public void run() {
                     table.removeViews(1,table.getChildCount()-1);
-
                     // Fetch users from database
-                    FetchUsers(userDb,table);
+                    if(isLoadFromFirebase)
+                        FetchUsersFromFirebase(userDb,table);
+                    else
+                        FetchUsers(table);
+
                     handler.postDelayed(autoUpdater, 10000);
                 }
             };
             autoUpdater.run();
-
         }
         catch (Exception e){
             // Show toast message as Unknown error
-            Toast.makeText(FirstFragment.super.getContext(),"Unknown error occurred while fetching users",Toast.LENGTH_LONG).show();
+            Toast.makeText(First3Fragment.super.getContext(),"Unknown error occurred while fetching users",Toast.LENGTH_LONG).show();
         }
 
         // Set click listener on 'new post' button
-        view.findViewById(R.id.btn_weather_report).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.btn_sql_weather_report).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // On click it navigates to add new form
-                NavHostFragment.findNavController(FirstFragment.this)
-                        .navigate(R.id.action_firstFragment_to_secondFragment);
+                NavHostFragment.findNavController(First3Fragment.this)
+                        .navigate(R.id.action_first3Fragment_to_second3Fragment);
             }
         });
 
         // Set click listener on 'new post' button
-        view.findViewById(R.id.btn_sql_activity).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.btn_main_activity).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // On click it navigates to add new form
-                Intent intent = new Intent(FirstFragment.super.getContext(),SqliteActivity.class);
+                Intent intent = new Intent(First3Fragment.super.getContext(),MainActivity.class);
                 startActivity(intent);
             }
         });
+
+        Button loadDataBtn= (Button)view.findViewById(R.id.btn_data_firebase);
+        // Set click listener on 'new post' button
+        loadDataBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    table.removeViews(1,table.getChildCount()-1);
+                    if(!isLoadFromFirebase) {
+                        // Get database refrence to users
+                        FetchUsersFromFirebase(userDb, table);
+                        isLoadFromFirebase = true;
+                        loadDataBtn.setText("Load Users From SQLite");
+
+                    }
+                    else {
+                        FetchUsers(table);
+                        isLoadFromFirebase = false;
+                        loadDataBtn.setText("Load Users From Firebase");
+                    }
+                    Toast.makeText(First3Fragment.super.getContext(),"Fetching Users from Firebase database...",Toast.LENGTH_LONG).show();
+                }
+                catch (Exception e){
+                    Toast.makeText(First3Fragment.super.getContext(),"Unknown error occurred while fetching users",Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
+
+        }
+
+    public void FetchUsers(TableLayout table){
     }
 
     //Fetch Users from database
-    public void FetchUsers(DatabaseReference userDb,TableLayout table){
+    public void FetchUsersFromFirebase(DatabaseReference userDb,TableLayout table){
 
         //Get complete snapshot of data from root data refrence in database
         userDb.addValueEventListener(new ValueEventListener() {
@@ -105,10 +137,10 @@ public class FirstFragment extends Fragment {
                         User user = userSnapshot.getValue(User.class);
 
                         // Create row
-                        TableRow row = new TableRow(FirstFragment.super.getContext());
+                        TableRow row = new TableRow(First3Fragment.super.getContext());
 
                         // Create Id column
-                        TextView id = new TextView(FirstFragment.super.getContext());
+                        TextView id = new TextView(First3Fragment.super.getContext());
                         id.setId(getId());
                         id.setText("   "+user.getUserId());
                         id.setTextColor(Color.BLUE);
@@ -134,7 +166,7 @@ public class FirstFragment extends Fragment {
 
                                 // Pass arguments to form
                                 // Navigate to form to to update details
-                                NavHostFragment.findNavController(FirstFragment.this)
+                                NavHostFragment.findNavController(First3Fragment.this)
                                         .navigate(R.id.action_firstFragment_to_secondFragment,args);
                             }
                         });
@@ -155,13 +187,13 @@ public class FirstFragment extends Fragment {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 // Show toast message as User not exist
-                Toast.makeText(FirstFragment.super.getContext(),"Users couldn't fetched from database",Toast.LENGTH_LONG).show();
+                Toast.makeText(First3Fragment.super.getContext(),"Users couldn't fetched from database",Toast.LENGTH_LONG).show();
             }
         });
     }
 
     public void createCell(TableRow row,int width,String value,int color){
-        TextView cell = new TextView(FirstFragment.super.getContext());
+        TextView cell = new TextView(First3Fragment.super.getContext());
         cell.setId(getId());
         cell.setText(value);
         cell.setTextColor(color);

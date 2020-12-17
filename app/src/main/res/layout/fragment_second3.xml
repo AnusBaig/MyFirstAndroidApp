@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SecondFragment">
+    tools:context=".Second3Fragment">
 
     <TextView
-        android:id="@+id/textview_second"
+        android:id="@+id/textview_sql_second"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/btn_dashboard"
@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btn_dashboard"
+        android:id="@+id/btn_sql_dashboard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Submit"
@@ -28,107 +28,112 @@
         app:layout_constraintVertical_bias="0.882" />
 
     <TextView
-        android:id="@+id/txt_post_action_title"
+        android:id="@+id/txt_post_sql_action_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="32dp"
         android:text="Post Details"
         android:textColor="@android:color/holo_orange_dark"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintHorizontal_bias="0.434"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/txt_input_email"
+        android:id="@+id/txt_sql_input_email"
         android:layout_width="248dp"
         android:layout_height="49dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="24dp"
         android:ems="10"
         android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/txt_input_firstName"
+        app:layout_constraintBottom_toTopOf="@+id/txt_sql_input_firstName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.342"
         app:layout_constraintStart_toEndOf="@+id/lbl_email" />
 
     <TextView
-        android:id="@+id/lbl_phone"
+        android:id="@+id/lbl_sql_phone"
         android:layout_width="78dp"
         android:layout_height="48dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginLeft="36dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginLeft="48dp"
+        android:layout_marginTop="32dp"
         android:text="Phone Number"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/btn_dashboard"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lbl_lastName"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_sql_lastName"
         app:layout_constraintVertical_bias="0.29" />
 
     <TextView
-        android:id="@+id/lbl_email"
+        android:id="@+id/lbl_sql_email"
         android:layout_width="124dp"
         android:layout_height="28dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
         android:layout_marginBottom="40dp"
         android:text="Email Address"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/lbl_firstName"
+        app:layout_constraintBottom_toTopOf="@+id/lbl_sql_firstName"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/txt_id"
+        android:id="@+id/txt_sql_id"
         android:layout_width="64dp"
         android:layout_height="26dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginLeft="52dp"
-        android:layout_marginBottom="44dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginLeft="48dp"
+        android:layout_marginBottom="48dp"
         android:text="User Id"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/lbl_email"
+        app:layout_constraintBottom_toTopOf="@+id/lbl_sql_email"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/lbl_lastName"
+        android:id="@+id/lbl_sql_lastName"
         android:layout_width="92dp"
         android:layout_height="33dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
         android:text="Last Name"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.545" />
+        app:layout_constraintVertical_bias="0.544" />
 
     <TextView
-        android:id="@+id/lbl_firstName"
+        android:id="@+id/lbl_sql_firstName"
         android:layout_width="92dp"
         android:layout_height="33dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginLeft="28dp"
-        android:layout_marginBottom="44dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginBottom="48dp"
         android:text="First Name"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/lbl_lastName"
+        app:layout_constraintBottom_toTopOf="@+id/lbl_sql_lastName"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/txt_input_firstName"
+        android:id="@+id/txt_sql_input_firstName"
         android:layout_width="243dp"
         android:layout_height="51dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginRight="28dp"
         android:layout_marginBottom="24dp"
         android:ems="10"
         android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/txt_input_lastName"
+        app:layout_constraintBottom_toTopOf="@+id/txt_sql_input_lastName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.416"
         app:layout_constraintStart_toEndOf="@+id/lbl_firstName" />
 
     <EditText
-        android:id="@+id/txt_input_lastName"
+        android:id="@+id/txt_sql_input_lastName"
         android:layout_width="244dp"
         android:layout_height="54dp"
         android:layout_marginEnd="28dp"
@@ -140,41 +145,47 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/lbl_lastName"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.545" />
+        app:layout_constraintVertical_bias="0.53" />
 
     <EditText
-        android:id="@+id/txt_input_phone"
+        android:id="@+id/txt_sql_input_phone"
         android:layout_width="252dp"
         android:layout_height="54dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
         android:ems="10"
         android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/btn_dashboard"
+        app:layout_constraintBottom_toTopOf="@+id/btn_sql_dashboard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toEndOf="@+id/lbl_phone"
-        app:layout_constraintTop_toBottomOf="@+id/txt_input_lastName"
-        app:layout_constraintVertical_bias="0.397" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_sql_input_lastName"
+        app:layout_constraintVertical_bias="0.071" />
 
     <EditText
-        android:id="@+id/txt_input_userId"
+        android:id="@+id/txt_sql_input_userId"
         android:layout_width="246dp"
         android:layout_height="52dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginRight="28dp"
+        android:layout_marginBottom="24dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/txt_input_email"
+        app:layout_constraintBottom_toTopOf="@+id/txt_sql_input_email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.444"
-        app:layout_constraintStart_toEndOf="@+id/txt_id" />
+        app:layout_constraintStart_toEndOf="@+id/txt_id"
+        app:layout_constraintTop_toBottomOf="@+id/txt_post_sql_action_title"
+        app:layout_constraintVertical_bias="0.794" />
 
     <Button
-        android:id="@+id/btn_delete"
+        android:id="@+id/btn_sql_delete"
         android:layout_width="71dp"
         android:layout_height="37dp"
         android:text="Delete"
         tools:layout_editor_absoluteX="313dp"
         tools:layout_editor_absoluteY="28dp" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
